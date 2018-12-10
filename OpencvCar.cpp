@@ -4,7 +4,7 @@
 
 #include "OpencvCar.h"
 
-// ³µÅÆ×Ö·ûÄ£°åÌØÕ÷Öµ
+// è½¦ç‰Œå­—ç¬¦æ¨¡æ¿ç‰¹å¾å€¼
 const int Num_Templete[TEMPLETENUM][CHARACTER] =
 {
 	{ 16, 19, 10, 12, 10, 10, 15, 18, 110, 3, 2, 2, 3, 3, 3 },     //0
@@ -43,17 +43,17 @@ const int Num_Templete[TEMPLETENUM][CHARACTER] =
 	{ 21, 23, 5, 15, 15, 5, 24, 20, 128, 2, 2, 2, 8, 8, 7 },       //Z
 	{ 13, 14, 10, 10, 10, 10, 13, 13, 93, 2, 2, 2, 29, 2, 29 },    //I
 	{ 20, 20, 13, 20, 19, 12, 17, 20, 141, 3, 3, 4, 4, 4, 4 },     //O          //36
-	{ 14, 15, 17, 17, 16, 10, 25, 24, 138, 0, 2, 4, 12, 8, 9 },    //ÔÆ        //37
-	{ 17, 20, 17, 12, 33, 28, 23, 20, 170, 3, 4, 7, 13, 6, 4 },    //ËÕ
-	{ 21, 21, 23, 24, 24, 25, 31, 27, 196, 0, 9, 6, 8, 6, 7 },     //¾©
-	{ 19, 27, 20, 34, 19, 36, 24, 37, 216, 4, 4, 7, 13, 28, 3 },   //Ïæ
-	{ 17, 14, 23, 27, 36, 40, 26, 27, 210, 4, 13, 4, 16, 14, 14 }, //Â³
-	{ 24, 24, 32, 38, 34, 32, 17, 22, 223, 9, 6, 10, 11, 12, 9 }, // ÔÁ
-	{ 22, 20, 33, 37, 25, 24, 24, 25, 210, 13, 3, 6, 12, 8, 7 }     //ÃÉ
+	{ 14, 15, 17, 17, 16, 10, 25, 24, 138, 0, 2, 4, 12, 8, 9 },    //äº‘        //37
+	{ 17, 20, 17, 12, 33, 28, 23, 20, 170, 3, 4, 7, 13, 6, 4 },    //è‹
+	{ 21, 21, 23, 24, 24, 25, 31, 27, 196, 0, 9, 6, 8, 6, 7 },     //äº¬
+	{ 19, 27, 20, 34, 19, 36, 24, 37, 216, 4, 4, 7, 13, 28, 3 },   //æ¹˜
+	{ 17, 14, 23, 27, 36, 40, 26, 27, 210, 4, 13, 4, 16, 14, 14 }, //é²
+	{ 24, 24, 32, 38, 34, 32, 17, 22, 223, 9, 6, 10, 11, 12, 9 }, // ç²¤
+	{ 22, 20, 33, 37, 25, 24, 24, 25, 210, 13, 3, 6, 12, 8, 7 }     //è’™
 };
 
-//³µÅÆ×Ö·û
-char *PlateCode[TEMPLETENUM] =
+//è½¦ç‰Œå­—ç¬¦
+const char *PlateCode[TEMPLETENUM] =
 {
 	"0", "1", "2", "3", "4",
 	"5", "6", "7", "8", "9",
@@ -62,19 +62,19 @@ char *PlateCode[TEMPLETENUM] =
 	"L", "M", "N", "P", "Q",
 	"R", "S", "T", "U", "V",
 	"W", "X", "Y", "Z", "I", "O",
-	"ÔÆ", "ËÕ", "¾©", "Ïæ", "Â³", "ÔÁ", "ÃÉ"
+	"äº‘", "è‹", "äº¬", "æ¹˜", "é²", "ç²¤", "è’™"
 };
-char *G_PlateChar[7] = { "Ã»", "ÓĞ", "ÕÒ", "µ½", "³µ", "ÅÆ", "!" }; // ³µÅÆºÅ
+const char *G_PlateChar[7] = { "æ²¡", "æœ‰", "æ‰¾", "åˆ°", "è½¦", "ç‰Œ", "!" }; // è½¦ç‰Œå·
 
 
 OpencvCar::OpencvCar()
 
 {
-	//³õÊ¼»¯  ±äÁ¿
-	IplImage *src = NULL;      //Ô­Ê¼Í¼Æ¬                        
-	IplImage *pImgCanny = NULL;  //¶şÖµ»¯µÄÍ¼                    
-	IplImage *pImgResize = NULL;   //¹éÒ»»¯µÄ³µÅÆÇøÓò»Ò¶ÈÍ¼                  
-	IplImage *pImgCharOne = NULL;   //×Ö·ûÍ¼Æ¬             
+	//åˆå§‹åŒ–  å˜é‡
+	IplImage *src = NULL;      //åŸå§‹å›¾ç‰‡                        
+	IplImage *pImgCanny = NULL;  //äºŒå€¼åŒ–çš„å›¾                    
+	IplImage *pImgResize = NULL;   //å½’ä¸€åŒ–çš„è½¦ç‰ŒåŒºåŸŸç°åº¦å›¾                  
+	IplImage *pImgCharOne = NULL;   //å­—ç¬¦å›¾ç‰‡             
 	IplImage *pImgCharTwo = NULL;
 	IplImage *pImgCharThree = NULL;
 	IplImage *pImgCharFour = NULL;
@@ -83,16 +83,16 @@ OpencvCar::OpencvCar()
 	IplImage *pImgCharSeven = NULL;
 }
 
-/* ----------------------×ÔÊÊÓ¦ãĞÖµ·¨---------------------------------//
-//--input£º t£ºÖĞĞÄãĞÖµ
-//--                Image: Í¼Æ¬Ö¸Õë
-//-- output:  return   ×ÔÊÊÓ¦¾ùÖµµÄãĞÖµ
+/* ----------------------è‡ªé€‚åº”é˜ˆå€¼æ³•---------------------------------//
+//--inputï¼š tï¼šä¸­å¿ƒé˜ˆå€¼
+//--                Image: å›¾ç‰‡æŒ‡é’ˆ
+//-- output:  return   è‡ªé€‚åº”å‡å€¼çš„é˜ˆå€¼
 //-------------------------------------------------------------------------*/
 int OpencvCar::AdaptiveThreshold(int t, IplImage *Image)
 {
 	int t1 = 0, t2 = 0, tnew = 0, i = 0, j = 0;
-	int Allt1 = 0, Allt2 = 0, accountt1 = 0, accountt2 = 0;//Allt1 Allt2 ±£´æÁ½²¿·ÖµÄºÍ 
-	for (j = 0; j<Image->height; j++) //¸ù¾İÏÖÓĞT£¬½«Í¼Ïñ·ÖÎªÁ½²¿·Ö£¬·Ö±ğÇóÁ½²¿·ÖµÄÆ½¾ùÖµt1¡¢t2
+	int Allt1 = 0, Allt2 = 0, accountt1 = 0, accountt2 = 0;//Allt1 Allt2 ä¿å­˜ä¸¤éƒ¨åˆ†çš„å’Œ 
+	for (j = 0; j<Image->height; j++) //æ ¹æ®ç°æœ‰Tï¼Œå°†å›¾åƒåˆ†ä¸ºä¸¤éƒ¨åˆ†ï¼Œåˆ†åˆ«æ±‚ä¸¤éƒ¨åˆ†çš„å¹³å‡å€¼t1ã€t2
 	{
 		for (i = 0; i<Image->width; i++)
 		{
@@ -111,56 +111,56 @@ int OpencvCar::AdaptiveThreshold(int t, IplImage *Image)
 	t1 = Allt1 / accountt1;
 	t2 = Allt2 / accountt2;
 	tnew = 0.5*(t1 + t2);
-	if (tnew == t) //Èôt1¡¢t2µÄÆ½¾ùÖµºÍtÏàµÈ£¬ÔòãĞÖµÈ·¶¨
+	if (tnew == t) //è‹¥t1ã€t2çš„å¹³å‡å€¼å’Œtç›¸ç­‰ï¼Œåˆ™é˜ˆå€¼ç¡®å®š
 		return tnew;
 	else
-		AdaptiveThreshold(tnew, Image); //²»µÈÔòÒÔt1¡¢t2µÄÆ½¾ùÖµÎªĞÂãĞÖµµü´ú
+		AdaptiveThreshold(tnew, Image); //ä¸ç­‰åˆ™ä»¥t1ã€t2çš„å¹³å‡å€¼ä¸ºæ–°é˜ˆå€¼è¿­ä»£
 }
-/* -----------------------¶şÖµ»¯-----------------------------------------//
-// --Input£º
-//              IplImage *Image: Í¼Æ¬Ö¸Õë
-//             int AdaptiveThreshold(int t,IplImage *Image)  //×ÔÊÊÓ¦ãĞÖµ·¨
+/* -----------------------äºŒå€¼åŒ–-----------------------------------------//
+// --Inputï¼š
+//              IplImage *Image: å›¾ç‰‡æŒ‡é’ˆ
+//             int AdaptiveThreshold(int t,IplImage *Image)  //è‡ªé€‚åº”é˜ˆå€¼æ³•
 //-- Output:
-//              IplImage *Image_O  ¶şÖµ»¯ºóµÄÍ¼Æ¬
+//              IplImage *Image_O  äºŒå€¼åŒ–åçš„å›¾ç‰‡
 //--  Description:
-//              ²ÉÓÃCanny±ßÔµ¼ì²â¶şÖµ»¯
+//              é‡‡ç”¨Cannyè¾¹ç¼˜æ£€æµ‹äºŒå€¼åŒ–
 //-------------------------------------------------------------------------*/
 void OpencvCar::Threshold(IplImage *Image, IplImage *Image_O)
 {
-	//µÃµ½Í¼Æ¬µÄ×î´ó»Ò¶ÈÖµºÍ×îĞ¡»Ò¶ÈÖµ
+	//å¾—åˆ°å›¾ç‰‡çš„æœ€å¤§ç°åº¦å€¼å’Œæœ€å°ç°åº¦å€¼
 	int thresMax = 0, thresMin = 255, i = 0, j = 0, t = 0;
 	for (j = 0; j<Image->height; j++)
 	for (i = 0; i<Image->width; i++)
 	{
-		if (CV_IMAGE_ELEM(Image, uchar, j, i)>thresMax) //ÏñËØÖµ ´óÓÚ 255  
-			thresMax = CV_IMAGE_ELEM(Image, uchar, j, i);  //°ÑÔªËØÖµ¸³¸ø thresMax
-		else if (CV_IMAGE_ELEM(Image, uchar, j, i)<thresMin) //Èç¹ûĞ¡ÓÚ 0   
-			thresMin = CV_IMAGE_ELEM(Image, uchar, j, i); //Ôò ¸Ä±äthresMin
+		if (CV_IMAGE_ELEM(Image, uchar, j, i)>thresMax) //åƒç´ å€¼ å¤§äº 255  
+			thresMax = CV_IMAGE_ELEM(Image, uchar, j, i);  //æŠŠå…ƒç´ å€¼èµ‹ç»™ thresMax
+		else if (CV_IMAGE_ELEM(Image, uchar, j, i)<thresMin) //å¦‚æœå°äº 0   
+			thresMin = CV_IMAGE_ELEM(Image, uchar, j, i); //åˆ™ æ”¹å˜thresMin
 	}
-	//int T=(thresMax+thresMin)*0.5; //»Ò¶ÈµÄ×î´óÖµºÍ×îĞ¡ÖµµÄÆ½¾ù
+	//int T=(thresMax+thresMin)*0.5; //ç°åº¦çš„æœ€å¤§å€¼å’Œæœ€å°å€¼çš„å¹³å‡
 	cvCanny(Image, Image_O, AdaptiveThreshold((thresMax + thresMin)*0.5, Image), thresMax*0.7, 3);
-	//Ğ¡ãĞÖµÓÃÀ´¿ØÖÆ±ßÔµÁ¬½Ó  ´óãĞÖµÓÃÀ´¿ØÖÆÇ¿±ßÔµµÄ³õÊ¼»¯·Ö¸î  cvCannyÖ»½ÓÊÜµ¥Í¨µÀµÄÊäÈë
+	//å°é˜ˆå€¼ç”¨æ¥æ§åˆ¶è¾¹ç¼˜è¿æ¥  å¤§é˜ˆå€¼ç”¨æ¥æ§åˆ¶å¼ºè¾¹ç¼˜çš„åˆå§‹åŒ–åˆ†å‰²  cvCannyåªæ¥å—å•é€šé“çš„è¾“å…¥
 }
-//³µÅÆÇøÓò¼ì²â
+//è½¦ç‰ŒåŒºåŸŸæ£€æµ‹
 
 /***************************************************
-INPUT  : pImg_Image   ¶şÖµ»¯ºóµÄÍ¼Ïñ
-src         Ô­Ê¼Í¼Ïñ
-OUTPUT :  pImgResize  ¹éÒ»»¯ºóµÄ³µÅÆ»Ò¶ÈÍ¼Ïñ
+INPUT  : pImg_Image   äºŒå€¼åŒ–åçš„å›¾åƒ
+src         åŸå§‹å›¾åƒ
+OUTPUT :  pImgResize  å½’ä¸€åŒ–åçš„è½¦ç‰Œç°åº¦å›¾åƒ
 Description :
-Êä³ö¹éÒ»»¯Í¼Æ¬´óĞ¡ 40*20
-¹éÒ»»¯µÄÇøÓòÎªÔÚÔÚÔ­Ê¼Í¼Æ¬(src) ¹éÒ»»¯Ö®ºó£¬ÔÚÔÙ¶şÖµ»¯ºó Í¼
+è¾“å‡ºå½’ä¸€åŒ–å›¾ç‰‡å¤§å° 40*20
+å½’ä¸€åŒ–çš„åŒºåŸŸä¸ºåœ¨åœ¨åŸå§‹å›¾ç‰‡(src) å½’ä¸€åŒ–ä¹‹åï¼Œåœ¨å†äºŒå€¼åŒ–å å›¾
 
-¶¨Î»·½·¨£º  Ë®Æ½·Ö¸î£¬´¹Ö±·Ö¸î£¬¹éÒ»»¯¡£
+å®šä½æ–¹æ³•ï¼š  æ°´å¹³åˆ†å‰²ï¼Œå‚ç›´åˆ†å‰²ï¼Œå½’ä¸€åŒ–ã€‚
 ***********************************************************/
 int OpencvCar::PlateAreaSearch(IplImage *pImg_Image, IplImage *src)
 {
-	if (pImg_Image == NULL)	{ return 0; } // ¼ì²âÊÇ·ñÓĞÖµ
+	if (pImg_Image == NULL)	{ return 0; } // æ£€æµ‹æ˜¯å¦æœ‰å€¼
 
 	IplImage* imgTest = 0;
 	int i = 0, j = 0, k = 0, m = 0;
 	bool flag = 0;
-	int plate_n = 0, plate_s = 0, plate_e = 0, plate_w = 0;  //¹ØÓÚ³µÅÆµÄÒ»Ğ©±äÁ¿
+	int plate_n = 0, plate_s = 0, plate_e = 0, plate_w = 0;  //å…³äºè½¦ç‰Œçš„ä¸€äº›å˜é‡
 
 	int *num_h = new int[max(pImg_Image->width, pImg_Image->height)];
 	if (num_h == NULL)
@@ -171,12 +171,12 @@ int OpencvCar::PlateAreaSearch(IplImage *pImg_Image, IplImage *src)
 		//	exit(1);	
 	}  // end if 
 
-	for (i = 0; i<pImg_Image->width; i++){ num_h[i] = 0; }  // ³õÊ¼»¯ ·ÖÅäµÄ¿Õ¼ä
+	for (i = 0; i<pImg_Image->width; i++){ num_h[i] = 0; }  // åˆå§‹åŒ– åˆ†é…çš„ç©ºé—´
 
 	imgTest = cvCreateImage(cvSize(pImg_Image->width, pImg_Image->height), IPL_DEPTH_8U, 1);
 	cvCopy(pImg_Image, imgTest);
 
-	//-- Ë®Æ½ ÂÖÀªÏ¸»¯
+	//-- æ°´å¹³ è½®å»“ç»†åŒ–
 	for (j = 0; j<imgTest->height; j++)
 	{
 		for (i = 0; i<imgTest->width - 1; i++)
@@ -189,53 +189,53 @@ int OpencvCar::PlateAreaSearch(IplImage *pImg_Image, IplImage *src)
 
 	int temp_1 = 0;
 	int temp_max = 0;
-	int temp_i = 0;  //ËµÃ÷ÕâÀïfor Ñ­»· ÊÇÕÒ³öÊı¾İÁ¿×î´óµÄµØ·½  20ĞĞ  Ò²¼´ÊÇ ³µÅÆÇøÓò
+	int temp_i = 0;  //è¯´æ˜è¿™é‡Œfor å¾ªç¯ æ˜¯æ‰¾å‡ºæ•°æ®é‡æœ€å¤§çš„åœ°æ–¹  20è¡Œ  ä¹Ÿå³æ˜¯ è½¦ç‰ŒåŒºåŸŸ
 	for (j = 0; j<imgTest->height - 20; j++)
 	{
 		temp_1 = 0;
-		for (i = 0; i<20; i++)//´Ë´¦forÑ­»· ÊÇÎªÁË¼ÆËã20ĞĞµÄ×ÜÊı¾İÁ¿  
+		for (i = 0; i<20; i++)//æ­¤å¤„forå¾ªç¯ æ˜¯ä¸ºäº†è®¡ç®—20è¡Œçš„æ€»æ•°æ®é‡  
 			temp_1 += num_h[i + j];
 		if (temp_1 >= temp_max)
 		{
 			temp_max = temp_1;
-			temp_i = j;//¼ÇÂ¼20ĞĞµÄ×î´óÊı¾İÁ¿µÄ¿ªÊ¼ ĞĞ
+			temp_i = j;//è®°å½•20è¡Œçš„æœ€å¤§æ•°æ®é‡çš„å¼€å§‹ è¡Œ
 		}
 	}
-	k = temp_i;//ÒÔÏÂÁ½¸öwhile Ñ­»·ÊÇÎªÁËÕÒ³ö ³µÅÆµÄÉÏÏÂ±ß½ç  µ±Ò»ĞĞµÄÊı¾İÁ¿Ğ¡ÓÚÄ³¸öÊıÖµÊ± Éè¶¨´ËÎª·Ö½çĞĞ
-	while (((num_h[k + 1]>POINT_X) || (num_h[k + 2]>POINT_X) || (num_h[k]>POINT_X)) && k) k--;//ÕÒ³öĞĞ±ß½çĞĞ
+	k = temp_i;//ä»¥ä¸‹ä¸¤ä¸ªwhile å¾ªç¯æ˜¯ä¸ºäº†æ‰¾å‡º è½¦ç‰Œçš„ä¸Šä¸‹è¾¹ç•Œ  å½“ä¸€è¡Œçš„æ•°æ®é‡å°äºæŸä¸ªæ•°å€¼æ—¶ è®¾å®šæ­¤ä¸ºåˆ†ç•Œè¡Œ
+	while (((num_h[k + 1]>POINT_X) || (num_h[k + 2]>POINT_X) || (num_h[k]>POINT_X)) && k) k--;//æ‰¾å‡ºè¡Œè¾¹ç•Œè¡Œ
 	plate_n = k + 1;//k+2; 
 	k = temp_i + 10;
-	while (((num_h[k - 1]>POINT_X) || (num_h[k - 2]>POINT_X) || (num_h[k]>POINT_X)) && (k<imgTest->height)) k++; //ÕÒ³öÏÂ±ß½çĞĞ
+	while (((num_h[k - 1]>POINT_X) || (num_h[k - 2]>POINT_X) || (num_h[k]>POINT_X)) && (k<imgTest->height)) k++; //æ‰¾å‡ºä¸‹è¾¹ç•Œè¡Œ
 	plate_s = k;//k-2; 
 
-	// Ã»ÕÒµ½Ë®Æ½·Ö¸îÏß£¬ÉèÖÃÎªÄ¬ÈÏÖµ
-	if (!(plate_n && plate_s  //ĞĞÎª¸ºÖµ »òÕß ÉÏĞĞ´óÓÚÏÂĞĞ  »òÕß ³µÅÆ¿í¶È´óÓÚ Éè¶¨Öµ ÔòË®Æ½·Ö¸îÊ§°Ü
+	// æ²¡æ‰¾åˆ°æ°´å¹³åˆ†å‰²çº¿ï¼Œè®¾ç½®ä¸ºé»˜è®¤å€¼
+	if (!(plate_n && plate_s  //è¡Œä¸ºè´Ÿå€¼ æˆ–è€… ä¸Šè¡Œå¤§äºä¸‹è¡Œ  æˆ–è€… è½¦ç‰Œå®½åº¦å¤§äº è®¾å®šå€¼ åˆ™æ°´å¹³åˆ†å‰²å¤±è´¥
 		&& (plate_n<plate_s) && ((plate_s - plate_n)*HIGH_WITH_CAR<imgTest->width*(1 - WITH_X))))
 	{
 		//flag=1;
-		cout << "Ë®Æ½·Ö¸îÊ§°Ü" << endl;
-		//MessageBox("Ë®Æ½·Ö¸îÊ§°Ü!");
+		cout << "æ°´å¹³åˆ†å‰²å¤±è´¥" << endl;
+		//MessageBox("æ°´å¹³åˆ†å‰²å¤±è´¥!");
 		return 0;
 	}
-	else//ÕÒµ½Ë®Æ½Ïß  
+	else//æ‰¾åˆ°æ°´å¹³çº¿  
 	{
 		int  max_count = 0;
 		int  plate_length = (imgTest->width - (plate_s - plate_n)*HIGH_WITH_CAR);
-		plate_w = imgTest->width*WITH_X - 1;//³µÅÆ¿í¶È Ä¬ÈÏ
+		plate_w = imgTest->width*WITH_X - 1;//è½¦ç‰Œå®½åº¦ é»˜è®¤
 
-		//--´¹Ö±·½Ïò
+		//--å‚ç›´æ–¹å‘
 		for (i = 0; i<imgTest->width; i++)
-		for (j = 0; j<imgTest->height - 1; j++)//ÓÃµÄ·½·¨ÊÇ ²î·Ö¸³Öµ·¨¡ª¡ªÎÒÆğµÄÃû×Ö Ó¦¸ÃÊÇÎªÁËÏ¸»¯ 
+		for (j = 0; j<imgTest->height - 1; j++)//ç”¨çš„æ–¹æ³•æ˜¯ å·®åˆ†èµ‹å€¼æ³•â€”â€”æˆ‘èµ·çš„åå­— åº”è¯¥æ˜¯ä¸ºäº†ç»†åŒ– 
 		{
 			CV_IMAGE_ELEM(imgTest, uchar, j, i) = CV_IMAGE_ELEM(imgTest, uchar, j + 1, i) - CV_IMAGE_ELEM(imgTest, uchar, j, i);
 		}
-		//ÏÂÃæÕâÒ»¶Î´úÂë Ïàµ±ÓÚ ÄÃÒ»¸ö³µÅÆ´óĞ¡µÄ¾ØĞÎÇøÓò ´Ó×óÍùÓÒ »¬¶¯£¬Ê²Ã´Ê±ºòÈ¦×¡µÄÊı¾İÁ¿×î´óµÄÊ±ºò
-		// ¾Í´ú±íÕÒµ½µÄ³µÅÆµÄ×ó±ß½ç ´ËÊ± ³µÅÆ×ó±ß½çµÄºá×ø±êÊÇ k
-		//ÕâÀï plate_length  ÓĞµãÄÑÀí½â£¬ËüµÄÖµÊÇ Ô­Í¼ÏñµÄ¿í¶È¼õÈ¥³µÅÆµÄ¿í¶È²îÖµ¡£
+		//ä¸‹é¢è¿™ä¸€æ®µä»£ç  ç›¸å½“äº æ‹¿ä¸€ä¸ªè½¦ç‰Œå¤§å°çš„çŸ©å½¢åŒºåŸŸ ä»å·¦å¾€å³ æ»‘åŠ¨ï¼Œä»€ä¹ˆæ—¶å€™åœˆä½çš„æ•°æ®é‡æœ€å¤§çš„æ—¶å€™
+		// å°±ä»£è¡¨æ‰¾åˆ°çš„è½¦ç‰Œçš„å·¦è¾¹ç•Œ æ­¤æ—¶ è½¦ç‰Œå·¦è¾¹ç•Œçš„æ¨ªåæ ‡æ˜¯ k
+		//è¿™é‡Œ plate_length  æœ‰ç‚¹éš¾ç†è§£ï¼Œå®ƒçš„å€¼æ˜¯ åŸå›¾åƒçš„å®½åº¦å‡å»è½¦ç‰Œçš„å®½åº¦å·®å€¼ã€‚
 		for (k = 0; k<plate_length; k++)
 		{
 			for (i = 0; i<(int)((plate_s - plate_n)*HIGH_WITH_CAR); i++)
-			for (j = plate_n; j<plate_s; j++)//Á½Ë®Æ½ÏßÖ®¼ä 
+			for (j = plate_n; j<plate_s; j++)//ä¸¤æ°´å¹³çº¿ä¹‹é—´ 
 			{
 				num_h[k] = num_h[k] + CV_IMAGE_ELEM(imgTest, uchar, j, (i + k)) / 250;
 			}
@@ -248,7 +248,7 @@ int OpencvCar::PlateAreaSearch(IplImage *pImg_Image, IplImage *src)
 		}
 
 
-		CvRect ROI_rect;                 //»ñµÃÍ¼Æ¬¸ĞĞËÈ¤ÇøÓò
+		CvRect ROI_rect;                 //è·å¾—å›¾ç‰‡æ„Ÿå…´è¶£åŒºåŸŸ
 		ROI_rect.x = plate_w;
 		ROI_rect.y = plate_n;
 		ROI_rect.width = (plate_s - plate_n)*HIGH_WITH_CAR;
@@ -257,46 +257,46 @@ int OpencvCar::PlateAreaSearch(IplImage *pImg_Image, IplImage *src)
 		if ((ROI_rect.width + ROI_rect.x)> pImg_Image->width)
 		{
 			ROI_rect.width = pImg_Image->width - ROI_rect.x;
-			cout << "´¹Ö±·½Ïò·Ö¸îÊ§°Ü£¡";
-			//MessageBox("´¹Ö±·½Ïò·Ö¸îÊ§°Ü!");
+			cout << "å‚ç›´æ–¹å‘åˆ†å‰²å¤±è´¥ï¼";
+			//MessageBox("å‚ç›´æ–¹å‘åˆ†å‰²å¤±è´¥!");
 			return 0;
 		}
 		else
 		{
-			IplImage *pImg8uROI = NULL;         //¸ĞĞËÈ¤µÄÍ¼Æ¬
+			IplImage *pImg8uROI = NULL;         //æ„Ÿå…´è¶£çš„å›¾ç‰‡
 			pImg8uROI = cvCreateImage(cvSize(ROI_rect.width, ROI_rect.height), src->depth, src->nChannels);
-			IplImage *pImg8u11 = NULL;        //³µÅÆÇøÓò»Ò¶ÈÍ¼
+			IplImage *pImg8u11 = NULL;        //è½¦ç‰ŒåŒºåŸŸç°åº¦å›¾
 			pImg8u11 = cvCreateImage(cvSize(40 * HIGH_WITH_CAR, 40), pImg8uROI->depth, pImg8uROI->nChannels);
 
-			cvSetImageROI(src, ROI_rect);//½« ROI_rect ÉèÖÃÎª¸ĞĞËÈ¤ÇøÓò
-			cvCopy(src, pImg8uROI, NULL);//°Ñ¸ĞĞËÈ¤ÇøÓò ¸´ÖÆµ½ pImg8uROI
-			cvResetImageROI(src);   //ÖØĞÂÉèÖÃ¸ĞĞËÈ¤ÇøÓò
+			cvSetImageROI(src, ROI_rect);//å°† ROI_rect è®¾ç½®ä¸ºæ„Ÿå…´è¶£åŒºåŸŸ
+			cvCopy(src, pImg8uROI, NULL);//æŠŠæ„Ÿå…´è¶£åŒºåŸŸ å¤åˆ¶åˆ° pImg8uROI
+			cvResetImageROI(src);   //é‡æ–°è®¾ç½®æ„Ÿå…´è¶£åŒºåŸŸ
 
 			pImgResize = cvCreateImage(cvSize(40 * HIGH_WITH_CAR, 40), IPL_DEPTH_8U, 1);
-			cvResize(pImg8uROI, pImg8u11, CV_INTER_LINEAR); //ÏßĞÔ²åÖµ  ¹éÒ»»¯  °Ñ³µÅÆ±ä³ÉÍ³Ò»´óĞ¡
+			cvResize(pImg8uROI, pImg8u11, CV_INTER_LINEAR); //çº¿æ€§æ’å€¼  å½’ä¸€åŒ–  æŠŠè½¦ç‰Œå˜æˆç»Ÿä¸€å¤§å°
 
-			cvCvtColor(pImg8u11, pImgResize, CV_RGB2GRAY);  //  ×ªÎª»Ò¶ÈÍ¼	  Y=0.299*R + 0.587*G + 0.114*B
-			Threshold(pImgResize, pImgResize);             // ¶şÖµ»¯
+			cvCvtColor(pImg8u11, pImgResize, CV_RGB2GRAY);  //  è½¬ä¸ºç°åº¦å›¾	  Y=0.299*R + 0.587*G + 0.114*B
+			Threshold(pImgResize, pImgResize);             // äºŒå€¼åŒ–
 
 			cvReleaseImage(&pImg8uROI);
 			cvReleaseImage(&pImg8u11);
 			cvReleaseImage(&imgTest);
 
-			cvNamedWindow("³µÅÆ");
-			cvShowImage("³µÅÆ", pImgResize);
+			cvNamedWindow("è½¦ç‰Œ");
+			cvShowImage("è½¦ç‰Œ", pImgResize);
 		}   // end if 
 	}    // end if 
 
-	// ÊÍ·ÅÄÚ´æ
+	// é‡Šæ”¾å†…å­˜
 	delete[]num_h;
 	num_h = NULL;
 	return 1;
 }
-//* -----------------------×Ö·û·Ö¸î-----------------------------------------//
-// --Input£º 
-//              IplImage * pImgResize £º ¹éÒ»»¯µÄ³µÅÆÇøÓò»Ò¶ÈÍ¼   
+//* -----------------------å­—ç¬¦åˆ†å‰²-----------------------------------------//
+// --Inputï¼š 
+//              IplImage * pImgResize ï¼š å½’ä¸€åŒ–çš„è½¦ç‰ŒåŒºåŸŸç°åº¦å›¾   
 //-- Output: 
-//               IplImage *pImgCharOne              // ×Ö·ûÍ¼Æ¬
+//               IplImage *pImgCharOne              // å­—ç¬¦å›¾ç‰‡
 //               IplImage *pImgCharTwo
 //               IplImage *pImgCharThree
 //               IplImage *pImgCharFour
@@ -304,29 +304,29 @@ int OpencvCar::PlateAreaSearch(IplImage *pImg_Image, IplImage *src)
 //               IplImage *pImgCharSix
 //               IplImage *pImgCharSeven
 //--  Description:  
-//               ÀûÓÃ´¹Ö±Í¶Ó°·¨ºÍ³µÅÆµÄÌØÕ÷½áºÏ·Ö¸î×Ö·ûÇøÓò
+//               åˆ©ç”¨å‚ç›´æŠ•å½±æ³•å’Œè½¦ç‰Œçš„ç‰¹å¾ç»“åˆåˆ†å‰²å­—ç¬¦åŒºåŸŸ
 //-------------------------------------------------------------------------*/  
 
 
 int OpencvCar::SegmentPlate()
 {
-	if (pImgResize == NULL)  { return 0; } // Ã»ÓĞÇĞ¸î³É¹¦£¬Ö±½Óµ¯³ö
+	if (pImgResize == NULL)  { return 0; } // æ²¡æœ‰åˆ‡å‰²æˆåŠŸï¼Œç›´æ¥å¼¹å‡º
 
-	int *num_h = new int[max(pImgResize->width, pImgResize->height)];	 // ¿ª±Ù¿Õ¼ä  Ò»°ãÓ¦¸ÃÊÇ width ´óĞ¡
+	int *num_h = new int[max(pImgResize->width, pImgResize->height)];	 // å¼€è¾Ÿç©ºé—´  ä¸€èˆ¬åº”è¯¥æ˜¯ width å¤§å°
 	if (num_h == NULL)   // 
 	{
 		//cout<<"memory exhausted"<<endl; 
-		cout << ("×Ö·û·Ö¸îmemory exhausted") << endl;
+		cout << ("å­—ç¬¦åˆ†å‰²memory exhausted") << endl;
 		return 0;
 		//exit(1);	
 	}  // end if 
-	int i = 0, j = 0, k = 0;//Ñ­»·±äÁ¿ 12
-	int  letter[14] = { 0, 20, 23, 43, 55, 75, 78, 98, 101, 121, 124, 127, 147, 167 }; // Ä¬ÈÏ·Ö¸î
+	int i = 0, j = 0, k = 0;//å¾ªç¯å˜é‡ 12
+	int  letter[14] = { 0, 20, 23, 43, 55, 75, 78, 98, 101, 121, 124, 127, 147, 167 }; // é»˜è®¤åˆ†å‰²
 	bool flag1 = 0;//    1     2     3     4       5           6    7  
-	// ´¹Ö±Í¶Ó°
+	// å‚ç›´æŠ•å½±
 	for (i = 0; i<40 * HIGH_WITH_CAR; i++)
 	{
-		num_h[i] = 0; // ³õÊ¼»¯Ö¸Õë
+		num_h[i] = 0; // åˆå§‹åŒ–æŒ‡é’ˆ
 		for (j = 0; j<17; j++)  // 0-16 /40
 		{
 			num_h[i] += CV_IMAGE_ELEM(pImgResize, uchar, j, i) / 45;
@@ -336,20 +336,20 @@ int OpencvCar::SegmentPlate()
 			num_h[i] += CV_IMAGE_ELEM(pImgResize, uchar, j, i) / 45;
 		}
 	}
-	// ³õ¶¨Î»£¬¶¨Î»µã µÚ¶ş¸ö×Ö·ûÄ©¶Ë£¬
+	// åˆå®šä½ï¼Œå®šä½ç‚¹ ç¬¬äºŒä¸ªå­—ç¬¦æœ«ç«¯ï¼Œ
 	int	max_count = 0;
 	int   flag = 0;
 	for (i = 30; i<40 * HIGH_WITH_CAR; i++)
 	{
-		if (num_h[i]<POINT_Y)//Ğ¡ÓÚ2 
+		if (num_h[i]<POINT_Y)//å°äº2 
 		{
 			max_count++;
 			if (max_count == 11)
 			{
-				letter[3] = i - 11; // find letter[3]//µÚ¶ş×Ö·ûµÄ¿ªÊ¼Î»ÖÃ
+				letter[3] = i - 11; // find letter[3]//ç¬¬äºŒå­—ç¬¦çš„å¼€å§‹ä½ç½®
 				while ((num_h[i]<POINT_Y) || (num_h[i - 1]<POINT_Y)) i++;
-				letter[4] = i - 1; // find letter[4]  //µÚÈı¸ö×Ö·ûµÄ¿ªÊ¼Î»ÖÃ
-				break;//Ö»ÒªÕÒµ½ µÚ¶ş¸ö×Ö·ûµÄÄ©¶Ë ºÍ µÚÈı¸ö×Ö·ûµÄ¿ªÊ¼ ¾ÍÍË³öÑ­»·
+				letter[4] = i - 1; // find letter[4]  //ç¬¬ä¸‰ä¸ªå­—ç¬¦çš„å¼€å§‹ä½ç½®
+				break;//åªè¦æ‰¾åˆ° ç¬¬äºŒä¸ªå­—ç¬¦çš„æœ«ç«¯ å’Œ ç¬¬ä¸‰ä¸ªå­—ç¬¦çš„å¼€å§‹ å°±é€€å‡ºå¾ªç¯
 			}
 		}
 		else
@@ -357,51 +357,51 @@ int OpencvCar::SegmentPlate()
 			max_count = 0;
 		}
 	}
-	// ¾«¶¨Î»
-	for (i = 0; i<40 * HIGH_WITH_CAR; i++)//Ã¿Ò»ÁĞµÄ 
+	// ç²¾å®šä½
+	for (i = 0; i<40 * HIGH_WITH_CAR; i++)//æ¯ä¸€åˆ—çš„ 
 	{
-		for (j = 17; j <= 24; j++)  // 17-24 /40   Ã¿Ò»ÁĞµÄ17 µ½ 24 ĞĞÏà¼Ó 
+		for (j = 17; j <= 24; j++)  // 17-24 /40   æ¯ä¸€åˆ—çš„17 åˆ° 24 è¡Œç›¸åŠ  
 		{
 			num_h[i] += CV_IMAGE_ELEM(pImgResize, uchar, j, i) / 45;
 		}
 	}
 
-	for (j = letter[3]; j>0; j--)//´ÓµÚ¶ş¸ö×Ö·ûµÄÄ©¶Ë¿ªÊ¼ ÍùÇ°ÕÒµÚÒ»¸öºÍµÚ¶ş¸ö×Ö·ûÆğÊ¼Î»ÖÃ
+	for (j = letter[3]; j>0; j--)//ä»ç¬¬äºŒä¸ªå­—ç¬¦çš„æœ«ç«¯å¼€å§‹ å¾€å‰æ‰¾ç¬¬ä¸€ä¸ªå’Œç¬¬äºŒä¸ªå­—ç¬¦èµ·å§‹ä½ç½®
 	{
-		if ((num_h[j]<POINT_Y) && (num_h[j - 1]<POINT_Y))//Ö»ÒªÓĞÁ½¸öÁĞµÄ 17µ½24 ĞĞµÄÖµĞ¡ÓÚ 2£¬
-		{                                           //¼´ÕÒµ½µÚ¶ş¸ö×Ö·ûµÄ¿ªÊ¼Î»ÖÃ
-			letter[2] = j;      // find letter[2]  µÚ¶ş¸ö×Ö·ûµÄ¿ªÊ¼Î»ÖÃ
-			letter[1] = (j >= 23) ? j - 3 : letter[1];   //µÚÒ»¸ö×Ö·ûµÄ½áÊøÎ»ÖÃ
-			letter[0] = (j >= 23) ? j - 23 : letter[0];  //µÚÒ»¸ö×Ö·ûµÄÆğÊ¼Î»ÖÃ
-			break;       //ÕÒµ½¾ÍÍË³öÑ­»·
+		if ((num_h[j]<POINT_Y) && (num_h[j - 1]<POINT_Y))//åªè¦æœ‰ä¸¤ä¸ªåˆ—çš„ 17åˆ°24 è¡Œçš„å€¼å°äº 2ï¼Œ
+		{                                           //å³æ‰¾åˆ°ç¬¬äºŒä¸ªå­—ç¬¦çš„å¼€å§‹ä½ç½®
+			letter[2] = j;      // find letter[2]  ç¬¬äºŒä¸ªå­—ç¬¦çš„å¼€å§‹ä½ç½®
+			letter[1] = (j >= 23) ? j - 3 : letter[1];   //ç¬¬ä¸€ä¸ªå­—ç¬¦çš„ç»“æŸä½ç½®
+			letter[0] = (j >= 23) ? j - 23 : letter[0];  //ç¬¬ä¸€ä¸ªå­—ç¬¦çš„èµ·å§‹ä½ç½®
+			break;       //æ‰¾åˆ°å°±é€€å‡ºå¾ªç¯
 		}
 	}
 
-	j = 2;  flag = 0; flag1 = 0;//Á½¸ö±ê¼Ç
-	for (i = letter[4]; i<40 * HIGH_WITH_CAR; i++)  //´ÓµÚÈı¸ö×Ö·ûµÄ¿ªÊ¼Î»ÖÃËãÆğ
+	j = 2;  flag = 0; flag1 = 0;//ä¸¤ä¸ªæ ‡è®°
+	for (i = letter[4]; i<40 * HIGH_WITH_CAR; i++)  //ä»ç¬¬ä¸‰ä¸ªå­—ç¬¦çš„å¼€å§‹ä½ç½®ç®—èµ·
 	{
 		if ((num_h[i]>POINT_Y) && (num_h[i - 1]>POINT_Y) && !flag)
 		{
 			flag = 1;
 			flag1 = 0;
-			letter[2 * j] = i - 1; //ÕâÀï Ö»¼ÇÂ¼×Ö·ûµÄ¿ªÊ¼Î»ÖÃ
-			if (j == 6)  //ÅĞ¶Ï ×îºóÒ»¸ö×Ö·ûµÄ½áÊøÎ»ÖÃ ÊÇ·ñÔ½½ç ³¬³ö½çÏŞ,Èç¹ûÃ»ÓĞ,Ôòletter[13]=letter[12]+20
+			letter[2 * j] = i - 1; //è¿™é‡Œ åªè®°å½•å­—ç¬¦çš„å¼€å§‹ä½ç½®
+			if (j == 6)  //åˆ¤æ–­ æœ€åä¸€ä¸ªå­—ç¬¦çš„ç»“æŸä½ç½® æ˜¯å¦è¶Šç•Œ è¶…å‡ºç•Œé™,å¦‚æœæ²¡æœ‰,åˆ™letter[13]=letter[12]+20
 			{
 				letter[2 * j + 1] = ((letter[2 * j] + 20)>40 * HIGH_WITH_CAR - 1) ? 40 * HIGH_WITH_CAR - 1 : letter[2 * j] + 20;
-				break;//ÍË³ö forÑ­»·
+				break;//é€€å‡º forå¾ªç¯
 			}
 		}
-		else if ((num_h[i]<POINT_Y) && (num_h[i - 1]<POINT_Y) && !flag1 && flag)//Èç¹ûÊÇ ¿Õ°×ÇøÓò  
+		else if ((num_h[i]<POINT_Y) && (num_h[i - 1]<POINT_Y) && !flag1 && flag)//å¦‚æœæ˜¯ ç©ºç™½åŒºåŸŸ  
 		{
 			flag = 0;
 			flag1 = 1;
 			letter[2 * j + 1] = i - 1;
-			j++; //j×Ô¶¯¼Ó 1
+			j++; //jè‡ªåŠ¨åŠ  1
 		}                        //    1    
 	}
-	// É¾³ı½Çµã                              1   0   1
+	// åˆ é™¤è§’ç‚¹                              1   0   1
 	for (i = 0; i<40 * HIGH_WITH_CAR - 1; i++)
-	{	                               //      1    É¾³ı½Çµã  Ïàµ±ÓÚÄÃÒ»¸ö°ë¾¶Îª1 µÄÔ² È¥È¦ Èç¹ûËÄÖÜÓĞÁ½¸öÊÇ1  Ôò×Ô¼ºÉèÖÃÎª0   
+	{	                               //      1    åˆ é™¤è§’ç‚¹  ç›¸å½“äºæ‹¿ä¸€ä¸ªåŠå¾„ä¸º1 çš„åœ† å»åœˆ å¦‚æœå››å‘¨æœ‰ä¸¤ä¸ªæ˜¯1  åˆ™è‡ªå·±è®¾ç½®ä¸º0   
 
 		for (j = 0; j<39; j++)  // 0-16 /40
 		{
@@ -419,7 +419,7 @@ int OpencvCar::SegmentPlate()
 		}
 	}
 
-	// ·Ö¸î³ö×Ö·ûÍ¼Æ¬
+	// åˆ†å‰²å‡ºå­—ç¬¦å›¾ç‰‡
 	pImgCharOne = cvCreateImage(cvSize(20, 40), IPL_DEPTH_8U, 1);
 	pImgCharTwo = cvCreateImage(cvSize(20, 40), IPL_DEPTH_8U, 1);
 	pImgCharThree = cvCreateImage(cvSize(20, 40), IPL_DEPTH_8U, 1);
@@ -434,73 +434,73 @@ int OpencvCar::SegmentPlate()
 	ROI_rect1.width = 20;
 	ROI_rect1.height = 40;
 	cvSetImageROI(pImgResize, ROI_rect1);
-	cvCopy(pImgResize, pImgCharOne, NULL); //»ñÈ¡µÚ1¸ö×Ö·û
+	cvCopy(pImgResize, pImgCharOne, NULL); //è·å–ç¬¬1ä¸ªå­—ç¬¦
 	cvResetImageROI(pImgResize);
-	cvNamedWindow("µÚÒ»¸ö×Ö·û");
-	cvShowImage("µÚÒ»¸ö×Ö·û", pImgCharOne);
+	cvNamedWindow("ç¬¬ä¸€ä¸ªå­—ç¬¦");
+	cvShowImage("ç¬¬ä¸€ä¸ªå­—ç¬¦", pImgCharOne);
 
 	ROI_rect1.x = 0.5*(letter[3] + letter[2]) - 10;
 	ROI_rect1.y = 0;
 	ROI_rect1.width = 20;
 	ROI_rect1.height = 40;
 	cvSetImageROI(pImgResize, ROI_rect1);
-	cvCopy(pImgResize, pImgCharTwo, NULL); //»ñÈ¡µÚ2¸ö×Ö·û
+	cvCopy(pImgResize, pImgCharTwo, NULL); //è·å–ç¬¬2ä¸ªå­—ç¬¦
 	cvResetImageROI(pImgResize);
-	cvNamedWindow("µÚ¶ş¸ö×Ö·û");
-	cvShowImage("µÚ¶ş¸ö×Ö·û", pImgCharTwo);
+	cvNamedWindow("ç¬¬äºŒä¸ªå­—ç¬¦");
+	cvShowImage("ç¬¬äºŒä¸ªå­—ç¬¦", pImgCharTwo);
 
 	ROI_rect1.x = 0.5*(letter[5] + letter[4]) - 10;
 	ROI_rect1.y = 0;
 	ROI_rect1.width = 20;
 	ROI_rect1.height = 40;
 	cvSetImageROI(pImgResize, ROI_rect1);
-	cvCopy(pImgResize, pImgCharThree, NULL); //»ñÈ¡µÚ3¸ö×Ö·û
+	cvCopy(pImgResize, pImgCharThree, NULL); //è·å–ç¬¬3ä¸ªå­—ç¬¦
 	cvResetImageROI(pImgResize);
-	cvNamedWindow("µÚÈı¸ö×Ö·û");
-	cvShowImage("µÚÈı¸ö×Ö·û", pImgCharThree);
+	cvNamedWindow("ç¬¬ä¸‰ä¸ªå­—ç¬¦");
+	cvShowImage("ç¬¬ä¸‰ä¸ªå­—ç¬¦", pImgCharThree);
 
 	ROI_rect1.x = 0.5*(letter[7] + letter[6]) - 10;
 	ROI_rect1.y = 0;
 	ROI_rect1.width = 20;
 	ROI_rect1.height = 40;
 	cvSetImageROI(pImgResize, ROI_rect1);
-	cvCopy(pImgResize, pImgCharFour, NULL); //»ñÈ¡µÚ4¸ö×Ö·û
+	cvCopy(pImgResize, pImgCharFour, NULL); //è·å–ç¬¬4ä¸ªå­—ç¬¦
 	cvResetImageROI(pImgResize);
-	cvNamedWindow("µÚËÄ¸ö×Ö·û");
-	cvShowImage("µÚËÄ¸ö×Ö·û", pImgCharFour);
+	cvNamedWindow("ç¬¬å››ä¸ªå­—ç¬¦");
+	cvShowImage("ç¬¬å››ä¸ªå­—ç¬¦", pImgCharFour);
 
 	ROI_rect1.x = 0.5*(letter[9] + letter[8]) - 10;
 	ROI_rect1.y = 0;
 	ROI_rect1.width = 20;
 	ROI_rect1.height = 40;
 	cvSetImageROI(pImgResize, ROI_rect1);
-	cvCopy(pImgResize, pImgCharFive, NULL); //»ñÈ¡µÚ5¸ö×Ö·û
+	cvCopy(pImgResize, pImgCharFive, NULL); //è·å–ç¬¬5ä¸ªå­—ç¬¦
 	cvResetImageROI(pImgResize);
-	cvNamedWindow("µÚÎå¸ö×Ö·û");
-	cvShowImage("µÚÎå¸ö×Ö·û", pImgCharFive);
+	cvNamedWindow("ç¬¬äº”ä¸ªå­—ç¬¦");
+	cvShowImage("ç¬¬äº”ä¸ªå­—ç¬¦", pImgCharFive);
 
 	ROI_rect1.x = 0.5*(letter[11] + letter[10]) - 10;
 	ROI_rect1.y = 0;
 	ROI_rect1.width = 20;
 	ROI_rect1.height = 40;
 	cvSetImageROI(pImgResize, ROI_rect1);
-	cvCopy(pImgResize, pImgCharSix, NULL); //»ñÈ¡µÚ6¸ö×Ö·û
+	cvCopy(pImgResize, pImgCharSix, NULL); //è·å–ç¬¬6ä¸ªå­—ç¬¦
 	cvResetImageROI(pImgResize);
-	cvNamedWindow("µÚÁù¸ö×Ö·û");
-	cvShowImage("µÚÁù¸ö×Ö·û", pImgCharSix);
+	cvNamedWindow("ç¬¬å…­ä¸ªå­—ç¬¦");
+	cvShowImage("ç¬¬å…­ä¸ªå­—ç¬¦", pImgCharSix);
 
 	ROI_rect1.x = 0.5*(letter[13] + letter[12]) - 10;
 	ROI_rect1.y = 0;
 	ROI_rect1.width = 20;
 	ROI_rect1.height = 40;
 	cvSetImageROI(pImgResize, ROI_rect1);
-	cvCopy(pImgResize, pImgCharSeven, NULL); //»ñÈ¡µÚ7¸ö×Ö·û
+	cvCopy(pImgResize, pImgCharSeven, NULL); //è·å–ç¬¬7ä¸ªå­—ç¬¦
 	cvResetImageROI(pImgResize);
-	cvNamedWindow("µÚÆß¸ö×Ö·û");
-	cvShowImage("µÚÆß¸ö×Ö·û", pImgCharSeven);
+	cvNamedWindow("ç¬¬ä¸ƒä¸ªå­—ç¬¦");
+	cvShowImage("ç¬¬ä¸ƒä¸ªå­—ç¬¦", pImgCharSeven);
 
 
-	//×Ö·ûÊ¶±ğ
+	//å­—ç¬¦è¯†åˆ«
 	CodeRecognize(pImgCharOne, 3, 0);
 	CodeRecognize(pImgCharTwo, 1, 1);
 	CodeRecognize(pImgCharThree, 2, 2);
@@ -509,7 +509,7 @@ int OpencvCar::SegmentPlate()
 	CodeRecognize(pImgCharSix, 0, 5);
 	CodeRecognize(pImgCharSeven, 0, 6);
 
-	//Êä³ö×Ö·ûÔÚ¿ØÖÆÌ¨ÉÏ
+	//è¾“å‡ºå­—ç¬¦åœ¨æ§åˆ¶å°ä¸Š
 	string outFile = "";
 	int carnum;
 	for (carnum = 0; carnum < 7; carnum++)
@@ -517,67 +517,67 @@ int OpencvCar::SegmentPlate()
 		outFile += G_PlateChar[carnum];
 	}
 
-	cout << "³µÅÆÎª:";
+	cout << "è½¦ç‰Œä¸º:";
 	cout << outFile << endl;
 
 	cvWaitKey();
 
-	// ÊÍ·ÅÄÚ´æ
+	// é‡Šæ”¾å†…å­˜
 	delete[]num_h;
 	num_h = NULL;
 
 }
 
-//* -----------------------×Ö·ûÊ¶±ğ-----------------------------------------//
-// --Input£º 
-//               IplImage *pImgCharOne              // ×Ö·ûÍ¼Æ¬
+//* -----------------------å­—ç¬¦è¯†åˆ«-----------------------------------------//
+// --Inputï¼š 
+//               IplImage *pImgCharOne              // å­—ç¬¦å›¾ç‰‡
 //               IplImage *pImgCharTwo
 //               IplImage *pImgCharThree
 //               IplImage *pImgCharFour
 //               IplImage *pImgCharFive
 //               IplImage *pImgCharSix
 //               IplImage *pImgCharSeven
-//               int num                    // Êı×Ö×Ö·ûºº×ÖÊ¶±ğÓÃ£¬
-//                                          // 0 Êı×Ö 1Ó¢ÎÄ 2Ó¢ÎÄºÍÊı×Ö 3ÖĞÎÄ
-//               int char_num               // µÚchar_num¸ö³µÅÆ×Ö·û
+//               int num                    // æ•°å­—å­—ç¬¦æ±‰å­—è¯†åˆ«ç”¨ï¼Œ
+//                                          // 0 æ•°å­— 1è‹±æ–‡ 2è‹±æ–‡å’Œæ•°å­— 3ä¸­æ–‡
+//               int char_num               // ç¬¬char_numä¸ªè½¦ç‰Œå­—ç¬¦
 //-- Output:   
-//               char *G_G_PlateChar[7]      // ³µÅÆºÅ 
+//               char *G_G_PlateChar[7]      // è½¦ç‰Œå· 
 //--  Description:  
-//               ÀûÓÃ´¹Ö±Í¶Ó°·¨ºÍ³µÅÆµÄÌØÕ÷½áºÏ·Ö¸î×Ö·ûÇøÓò
+//               åˆ©ç”¨å‚ç›´æŠ•å½±æ³•å’Œè½¦ç‰Œçš„ç‰¹å¾ç»“åˆåˆ†å‰²å­—ç¬¦åŒºåŸŸ
 //-------------------------------------------------------------------------*/  
 
-//ËµÃ÷£º´¹Ö±Í¶Ó° 
-//¶ÔÓÚ¶şÖµÍ¼Ïñ£¬Ë®Æ½·½ÏòµÄÍ¶Ó°¾ÍÊÇÃ¿ĞĞµÄ·ÇÁãÏñËØÖµµÄ¸öÊı£¬ÔÚÕâÀï¾ÍÊÇ1»òÕß255£¬
-//´¹Ö±Í¶Ó°¾ÍÊÇÃ¿ÁĞÍ¼ÏñÊı¾İÖĞ·ÇÁãÏñËØÖµµÄ¸öÊı¡£
-//³µÅÆÌØÕ÷  ¾ÍÊÇ ³µÅÆÒ»°ã´óĞ¡  ¼´³¤¿í±ÈÀı£¬»¹ÓĞÃ¿¸ö×Ö·ûÖ®¼äµÄ¼ä¸ô µÚ¶ş¸öºÍµÚÈı¸ö×Ö·ûÖ®¼ä¼ä
-//¸ô´óĞ©£¬³µÅÆÀïÓĞºº×Ö¡¢Êı×ÖºÍ×ÖÄ¸£¬µÚÒ»¸öÊÇºº×Ö£¬µÚ¶ş¸öÊÇ×ÖÄ¸£¬ºóÃæÊÇ×ÖÄ¸ºÍÊı×Ö£¬´óÌåÒ²¾ÍÕâÃ´Ğ©ÌØÕ÷
+//è¯´æ˜ï¼šå‚ç›´æŠ•å½± 
+//å¯¹äºäºŒå€¼å›¾åƒï¼Œæ°´å¹³æ–¹å‘çš„æŠ•å½±å°±æ˜¯æ¯è¡Œçš„éé›¶åƒç´ å€¼çš„ä¸ªæ•°ï¼Œåœ¨è¿™é‡Œå°±æ˜¯1æˆ–è€…255ï¼Œ
+//å‚ç›´æŠ•å½±å°±æ˜¯æ¯åˆ—å›¾åƒæ•°æ®ä¸­éé›¶åƒç´ å€¼çš„ä¸ªæ•°ã€‚
+//è½¦ç‰Œç‰¹å¾  å°±æ˜¯ è½¦ç‰Œä¸€èˆ¬å¤§å°  å³é•¿å®½æ¯”ä¾‹ï¼Œè¿˜æœ‰æ¯ä¸ªå­—ç¬¦ä¹‹é—´çš„é—´éš” ç¬¬äºŒä¸ªå’Œç¬¬ä¸‰ä¸ªå­—ç¬¦ä¹‹é—´é—´
+//éš”å¤§äº›ï¼Œè½¦ç‰Œé‡Œæœ‰æ±‰å­—ã€æ•°å­—å’Œå­—æ¯ï¼Œç¬¬ä¸€ä¸ªæ˜¯æ±‰å­—ï¼Œç¬¬äºŒä¸ªæ˜¯å­—æ¯ï¼Œåé¢æ˜¯å­—æ¯å’Œæ•°å­—ï¼Œå¤§ä½“ä¹Ÿå°±è¿™ä¹ˆäº›ç‰¹å¾
 int OpencvCar::CodeRecognize(IplImage *imgTest, int num, int char_num)
 {
 	if (imgTest == NULL){ return 0; }
 
-	int i = 0, j = 0, k = 0, t = 0;//Ñ­»·±äÁ¿
-	int  char_start = 0, char_end = 0;//*PlateCode[TEMPLETENUM] ³µÅÆ×Ö·ûÀï×ÖÄ¸¡¢Êı×Ö¡¢ºº×ÖÆğÊ¼Î»ÖÃ
+	int i = 0, j = 0, k = 0, t = 0;//å¾ªç¯å˜é‡
+	int  char_start = 0, char_end = 0;//*PlateCode[TEMPLETENUM] è½¦ç‰Œå­—ç¬¦é‡Œå­—æ¯ã€æ•°å­—ã€æ±‰å­—èµ·å§‹ä½ç½®
 	int num_t[CHARACTER] = { 0 };
 
 
-	switch (num)//ÕâÀïÕâÑù·Ö ¿ÉÒÔÌá¸ßĞ§ÂÊ£¬²¢ÇÒÌá¸ßÁËÊ¶±ğÂÊ
+	switch (num)//è¿™é‡Œè¿™æ ·åˆ† å¯ä»¥æé«˜æ•ˆç‡ï¼Œå¹¶ä¸”æé«˜äº†è¯†åˆ«ç‡
 	{
-	case 0:  char_start = 0;         // Êı×Ö
+	case 0:  char_start = 0;         // æ•°å­—
 		char_end = 9;
 		break;
-	case 1:  char_start = 10;        // Ó¢ÎÄ
+	case 1:  char_start = 10;        // è‹±æ–‡
 		char_end = 35;
 		break;
-	case 2:  char_start = 0;       // Ó¢ÎÄºÍÊı×Ö
+	case 2:  char_start = 0;       // è‹±æ–‡å’Œæ•°å­—
 		char_end = 35;
 		break;
-	case 3:  char_start = 36;       // ÖĞÎÄ
+	case 3:  char_start = 36;       // ä¸­æ–‡
 		char_end = TEMPLETENUM - 1;
 		break;
 	default: break;
 	}
 
-	// ÌáÈ¡Ç°8¸öÌØÕ÷  Ç°8¸öÌØÕ÷ ¿ÉÒÔËµÊÇ¹Ì¶¨Î»ÖÃµÄÖµ  ¹Ì¶¨Ëã·¨
+	// æå–å‰8ä¸ªç‰¹å¾  å‰8ä¸ªç‰¹å¾ å¯ä»¥è¯´æ˜¯å›ºå®šä½ç½®çš„å€¼  å›ºå®šç®—æ³•
 	for (k = 0; k<8; k++)
 	{
 		for (j = int(k / 2) * 10; j<int(k / 2 + 1) * 10; j++)
@@ -587,10 +587,10 @@ int OpencvCar::CodeRecognize(IplImage *imgTest, int num, int char_num)
 				num_t[k] += CV_IMAGE_ELEM(imgTest, uchar, j, i) / 255;
 			}
 		}
-		num_t[8] += num_t[k];  // µÚ9¸öÌØÕ÷ Ç°8¸öÌØÕ÷µÄºÍ×÷ÎªµÚ9¸öÌØÕ÷Öµ
+		num_t[8] += num_t[k];  // ç¬¬9ä¸ªç‰¹å¾ å‰8ä¸ªç‰¹å¾çš„å’Œä½œä¸ºç¬¬9ä¸ªç‰¹å¾å€¼
 	}
 
-	for (i = 0; i<20; i++)  //ÒÔÏÂÌØÕ÷Ò²ÊÇ ¹Ì¶¨Ëã·¨µÃµ½µÄ 
+	for (i = 0; i<20; i++)  //ä»¥ä¸‹ç‰¹å¾ä¹Ÿæ˜¯ å›ºå®šç®—æ³•å¾—åˆ°çš„ 
 		num_t[9] += CV_IMAGE_ELEM(imgTest, uchar, 10, i) / 255;
 	for (i = 0; i<20; i++)
 		num_t[10] += CV_IMAGE_ELEM(imgTest, uchar, 20, i) / 255;
@@ -605,9 +605,9 @@ int OpencvCar::CodeRecognize(IplImage *imgTest, int num, int char_num)
 		num_t[14] += CV_IMAGE_ELEM(imgTest, uchar, j, 13) / 255;
 
 	int num_tt[CHARACTER] = { 0 };
-	int matchnum = 0;  //¿ÉÒÔËµÊÇ Æ¥Åä¶È»ò ÏàËÆ¶È
+	int matchnum = 0;  //å¯ä»¥è¯´æ˜¯ åŒ¹é…åº¦æˆ– ç›¸ä¼¼åº¦
 	int matchnum_max = 0;
-	int matchcode = 0;         // Æ¥ÅäºÅ
+	int matchcode = 0;         // åŒ¹é…å·
 	//int matchtempnum[10]={0};
 
 	j = 0;
@@ -617,18 +617,18 @@ int OpencvCar::CodeRecognize(IplImage *imgTest, int num, int char_num)
 	{
 		matchnum = 0;
 
-		for (i = 0; i<8; i++) //ÇøÓòµÄÆ¥Åä
+		for (i = 0; i<8; i++) //åŒºåŸŸçš„åŒ¹é…
 		{
 			//	num_tt[i]= abs(num_t[i]-num[k][i]);	  
-			if (abs(num_t[i] - Num_Templete[k][i]) <= 2)//ÓëÄ£°åÀïµÄÏàÓ¦Öµ½øĞĞÆ¥Åä
-				matchnum++;//Á½ÕßÏà¼õ£¬Èç¹û¾ø¶ÔÖµĞ¡ÓÚ2£¬±ê¼ÇÆ¥Åä³É¹¦Ò»´Î
+			if (abs(num_t[i] - Num_Templete[k][i]) <= 2)//ä¸æ¨¡æ¿é‡Œçš„ç›¸åº”å€¼è¿›è¡ŒåŒ¹é…
+				matchnum++;//ä¸¤è€…ç›¸å‡ï¼Œå¦‚æœç»å¯¹å€¼å°äº2ï¼Œæ ‡è®°åŒ¹é…æˆåŠŸä¸€æ¬¡
 		}
 
-		if (Num_Templete[k][i] - abs(num_t[i]) <= 8)//¶ÔµÚ9¸öÌØÕ÷½øĞĞÆ¥Åä 
+		if (Num_Templete[k][i] - abs(num_t[i]) <= 8)//å¯¹ç¬¬9ä¸ªç‰¹å¾è¿›è¡ŒåŒ¹é… 
 			matchnum += 2;
-		for (i = 9; i<CHARACTER; i++)  // ºáÊúµÄÆ¥Åä  
+		for (i = 9; i<CHARACTER; i++)  // æ¨ªç«–çš„åŒ¹é…  
 		{
-			if (Num_Templete[k][i] >= 5)  //ÌØÕ÷Öµ ´óÓÚ5 
+			if (Num_Templete[k][i] >= 5)  //ç‰¹å¾å€¼ å¤§äº5 
 			{
 				if (abs(num_t[i] - Num_Templete[k][i]) <= 1)
 					matchnum += 2;
@@ -640,11 +640,11 @@ int OpencvCar::CodeRecognize(IplImage *imgTest, int num, int char_num)
 		}
 		if (matchnum>matchnum_max)
 		{
-			matchnum_max = matchnum;  //±£Áô×î´óµÄ Æ¥Åä 
-			matchcode = k;  //¼ÇÂ¼ Ê¶±ğµÄ×Ö·ûµÄ Ë÷Òı 
+			matchnum_max = matchnum;  //ä¿ç•™æœ€å¤§çš„ åŒ¹é… 
+			matchcode = k;  //è®°å½• è¯†åˆ«çš„å­—ç¬¦çš„ ç´¢å¼• 
 			//matchtempnum[j]=matchnum_min
 		}
 	}
-	//Ê¶±ğÊä³ö  ´æ·ÅÊä³ö½á¹û
-	G_PlateChar[char_num] = PlateCode[matchcode]; //±£´æÏÂ¸Ã×Ö·û
+	//è¯†åˆ«è¾“å‡º  å­˜æ”¾è¾“å‡ºç»“æœ
+	G_PlateChar[char_num] = PlateCode[matchcode]; //ä¿å­˜ä¸‹è¯¥å­—ç¬¦
 }
